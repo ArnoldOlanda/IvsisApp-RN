@@ -60,15 +60,15 @@ export const styles = StyleSheet.create({
         marginVertical:10
     },
     fabBtn:{
-        width: 60,
-        height: 60,
+        width: 72,
+        height: 72,
         borderRadius:50,
         backgroundColor:colors.buttonPrimary,
         justifyContent:'center',
         alignItems:'center',
         position: 'absolute',
-        bottom: 10,
-        right: 10
+        bottom: 20,
+        right: 20
 
     }
 });

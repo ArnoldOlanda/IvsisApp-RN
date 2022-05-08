@@ -10,33 +10,35 @@ export const LoginScreen = ({ navigation }) => {
   const [password, setPassword] = useState('')
 
   const onPressLogin = async () => {
-    // if(user.length < 1 || password.length < 1 ){
-    //   return ToastAndroid.show('Llene todos los campos',ToastAndroid.SHORT)
-    // }
+    if(user.length < 1 || password.length < 1 ){
+      return ToastAndroid.show('Llene todos los campos',ToastAndroid.SHORT)
+    }
 
-    // const body = JSON.stringify({
-    //   usuario:user,
-    //   password
-    // })
+    const body = JSON.stringify({
+      usuario:user,
+      password
+    })
 
-    // const response = await fetch('https://ivsis-api.herokuapp.com/api/auth/login',{
-    //   method:'POST',
-    //   body,
-    //   headers: {
-    //     Accept: 'application/json',
-    //     'Content-Type': 'application/json'
-    //   },
-    // })
+    const response = await fetch('https://ivsis-api.herokuapp.com/api/auth/login',{
+      method:'POST',
+      body,
+      headers: {
+        Accept: 'application/json',
+        'Content-Type': 'application/json'
+      },
+    })
 
-    // if(response.status == 400){
-    //   return ToastAndroid.show('Datos incorrectos intente de nuevo',ToastAndroid.SHORT);
-    // } 
-    // setUser('')
-    // setPassword('')
-    // const data = await response.json();
-    // const nombre = data.usuario.nombre_completo;
-    const nombre = "Arnold Olanda"
-    // ToastAndroid.show(`Loggin as ${ nombre }`,ToastAndroid.SHORT);
+    if(response.status == 400){
+      return ToastAndroid.show('Datos incorrectos intente de nuevo',ToastAndroid.SHORT);
+    }
+
+    setUser('')
+    setPassword('')
+    
+    const data = await response.json();
+    const nombre = data.usuario.nombre_completo;
+
+    ToastAndroid.show(`Loggin as ${ nombre }`,ToastAndroid.SHORT);
     navigation.navigate('MainDrawer',{ nombre })
   }
 
