@@ -5,12 +5,14 @@ import { Image, Text, TouchableOpacity, useWindowDimensions, View,Alert } from '
 import { drawerStyles } from '../theme/drawerTheme';
 import { GroupsStack } from './GroupsStack';
 
+import Icon from 'react-native-vector-icons/Ionicons';
+
+
+
 const Drawer = createDrawerNavigator();
 
-export const MainDrawer = ( { route, navigation } ) => {
+export const MainDrawer = ( ) => {
 
-    const params = route.params;
-    const {nombre} = params;
 
     const { width } =useWindowDimensions();
 
@@ -25,12 +27,12 @@ export const MainDrawer = ( { route, navigation } ) => {
                 headerTintColor:'#fff',
                 headerLeftContainerStyle:{ marginLeft:10, },
                 headerRightContainerStyle:{ marginRight:20 },
-                headerRight:()=>( <Text style={{color:'#fff'}}>ic</Text> ),
+                headerRight:()=>( <Icon name="settings-sharp" size={30} color="#fff" /> ),
             }}
             drawerContent = { (props) => <MenuInterno {...props}/> }
             
         >
-            <Drawer.Screen name="Dashboard" component={ Dashboard } initialParams={{ nombre }} />
+            <Drawer.Screen name="Dashboard" component={ Dashboard } />
             <Drawer.Screen 
             name="GroupsStack" 
             component={ GroupsStack } 

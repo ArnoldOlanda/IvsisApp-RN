@@ -1,45 +1,58 @@
-import React, { useState } from 'react'
+import React, { useState,useContext } from 'react'
 import { Image, Text, TextInput, TouchableOpacity, View,ToastAndroid } from 'react-native';
-import { StackScreenProps } from '@react-navigation/stack';
 import { styles } from '../theme/appTheme';
-
-// interface Props extends StackScreenProps<any,any>{};
+import { AuthContext } from '../context/AuthContext';
 
 export const LoginScreen = ({ navigation }) => {
-  const [user, setUser] = useState('')
-  const [password, setPassword] = useState('')
+  const [user, setUser] = useState('');
+  const [password, setPassword] = useState('');
+
+  const { setState } = useContext(AuthContext);
 
   const onPressLogin = async () => {
     if(user.length < 1 || password.length < 1 ){
       return ToastAndroid.show('Llene todos los campos',ToastAndroid.SHORT)
     }
 
-    const body = JSON.stringify({
-      usuario:user,
-      password
-    })
+    try {
+      const body = JSON.stringify({
+        usuario:user,
+        password
+      })
+  
+      const response = await fetch('https://ivsis-api.herokuapp.com/api/auth/login',{
+        method:'POST',
+        body,
+        headers: {
+          Accept: 'application/json',
+          'Content-Type': 'application/json'
+        },
+      })
+  
+      if(response.status == 400){
+        return ToastAndroid.show('Datos incorrectos intente de nuevo',ToastAndroid.SHORT);
+      }
+  
+      setUser('')
+      setPassword('')
+      
+      const data = await response.json();
+      const { usuario } = data;
+      const nombre = data.usuario.nombre_completo;
+      setState(old=>({
+        ...old,
+        idUser: usuario.id,
+        nombre: usuario.nombre_completo,
+        //token: data.token
+      }));
 
-    const response = await fetch('https://ivsis-api.herokuapp.com/api/auth/login',{
-      method:'POST',
-      body,
-      headers: {
-        Accept: 'application/json',
-        'Content-Type': 'application/json'
-      },
-    })
-
-    if(response.status == 400){
-      return ToastAndroid.show('Datos incorrectos intente de nuevo',ToastAndroid.SHORT);
+  
+  
+      // ToastAndroid.show(`Loggin as ${ nombre }`,ToastAndroid.SHORT);
+      navigation.navigate('MainDrawer')
+    } catch (error) {
+      console.log(error);
     }
-
-    setUser('')
-    setPassword('')
-    
-    const data = await response.json();
-    const nombre = data.usuario.nombre_completo;
-
-    ToastAndroid.show(`Loggin as ${ nombre }`,ToastAndroid.SHORT);
-    navigation.navigate('MainDrawer',{ nombre })
   }
 
   return (
@@ -58,6 +71,7 @@ export const LoginScreen = ({ navigation }) => {
         placeholder='Usuario'
         value={user}
         onChangeText={setUser}
+        autoFocus
         />
         <TextInput 
         style = {styles.input} 

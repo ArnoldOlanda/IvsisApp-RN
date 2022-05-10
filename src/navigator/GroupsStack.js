@@ -2,6 +2,7 @@
 import React from 'react';
 import { createStackNavigator } from '@react-navigation/stack';
 import { GroupListScreen } from '../screens/Groups/GroupListScreen';
+import { CreateGroupTabs } from './CreateGroupTabs';
 import { NewGroupScreen } from '../screens/Groups/NewGroupScreen';
 
 
@@ -21,7 +22,8 @@ export const GroupsStack = () => {
       }}
     >
       <Stack.Screen name="GroupListScreen" component={ GroupListScreen } />
-      <Stack.Screen name="NewGroupScreen" component={ NewGroupScreen } />
+      <Stack.Screen name="CreateGroupTabs" component={ CreateGroupTabs } />
+      {/* <Stack.Screen name="CreateGroupTabs" component={ CreateGroupTabs } /> */}
     </Stack.Navigator>
   );
 }

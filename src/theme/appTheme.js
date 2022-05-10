@@ -36,6 +36,23 @@ export const styles = StyleSheet.create({
         backgroundColor:colors.inputBackground,
         height: 50
     },
+    inputNumber : {
+        borderRadius:20,
+        textAlign:'center',
+        paddingHorizontal:20,
+        backgroundColor:colors.inputBackground,
+        height: 50,
+        width: 60
+    },
+    createButton:{
+        backgroundColor:colors.buttonPrimary,
+        marginHorizontal:70,
+        marginVertical:20,
+        borderRadius:20,
+        height: 40,
+        justifyContent:'center',
+        alignItems:'center'
+    },
     primaryButton:{
         backgroundColor:colors.buttonPrimary,
         marginHorizontal:70,
@@ -60,8 +77,8 @@ export const styles = StyleSheet.create({
         marginVertical:10
     },
     fabBtn:{
-        width: 72,
-        height: 72,
+        width: 70,
+        height: 70,
         borderRadius:50,
         backgroundColor:colors.buttonPrimary,
         justifyContent:'center',

@@ -1,16 +1,18 @@
-import React, { useEffect } from 'react'
+import React, { useEffect,useContext } from 'react'
 import { Text, TouchableOpacity, View,Dimensions, Image, Alert } from 'react-native';
+import { AuthContext } from '../context/AuthContext';
 import { dashBoardScreenStyles, styles } from '../theme/appTheme';
 
-export const Dashboard = ({ route, navigation }) => {
+export const Dashboard = ({ navigation }) => {
 
-    const params = route.params;
+    const { state,setState } = useContext(AuthContext);
+
     const hasUnsavedChanges = true;
 
     useEffect(() => {
         navigation.setOptions({
-            title : params.nombre
-        })
+            title:state.nombre
+        })  
     },[])
 
     useEffect(() =>{
@@ -27,7 +29,15 @@ export const Dashboard = ({ route, navigation }) => {
                 {
                 text: 'Si, aceptar',
                 style: 'destructive',
-                onPress: () => navigation.dispatch(e.data.action),
+                onPress: () => {
+                    navigation.dispatch(e.data.action)
+                    setState({
+                        idUser:undefined,
+                        nombre:undefined,
+                        token:undefined,
+                        groupList:[]
+                    })
+                },
                 },
             ]
             );
