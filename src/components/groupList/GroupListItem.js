@@ -40,6 +40,8 @@ export const GroupListItem = ({ data }) => {
                     const data = await response.json();
                     console.log(data);
 
+                    setIsModalVisible(false)
+
                     setState(old=>({
                     ...old,
                     groupList:old.groupList.filter((e)=>e.id!==id)
@@ -84,8 +86,8 @@ export const GroupListItem = ({ data }) => {
                                 }}
                                 onPress={ () => handlePressDeleteGroup(data.id) }
                                 >
-                                    <Icon name='trash-sharp' size={25} />
-                                    <Text style={{ paddingHorizontal:10 }}>Eliminar</Text>
+                                    <Icon name='trash-sharp' size={30} />
+                                    <Text style={{ paddingHorizontal:10,fontSize: 18 }}>Eliminar</Text>
                                 </TouchableOpacity>
                             </View>
                         </View>

@@ -7,7 +7,6 @@ export const Dashboard = ({ navigation }) => {
 
     const { state,setState } = useContext(AuthContext);
 
-    const hasUnsavedChanges = true;
 
     useEffect(() => {
         navigation.setOptions({
@@ -30,19 +29,20 @@ export const Dashboard = ({ navigation }) => {
                 text: 'Si, aceptar',
                 style: 'destructive',
                 onPress: () => {
-                    navigation.dispatch(e.data.action)
                     setState({
                         idUser:undefined,
                         nombre:undefined,
                         token:undefined,
                         groupList:[]
                     })
+                    console.log("se ejecuta");
+                    return navigation.dispatch(e.data.action)
                 },
                 },
             ]
             );
         }),
-        [navigation, hasUnsavedChanges]
+        []
     });
 
     return (

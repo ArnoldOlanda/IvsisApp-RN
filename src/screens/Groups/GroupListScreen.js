@@ -45,7 +45,8 @@ export const GroupListScreen = ({ navigation }) => {
 
     fetchData();
 
-    },[])
+
+  },[])
 
   return (
     <View style={{...dashBoardScreenStyles.container, paddingTop:0, paddingHorizontal: 5 }}>

@@ -39,6 +39,7 @@ export const LoginScreen = ({ navigation }) => {
       const data = await response.json();
       const { usuario } = data;
       const nombre = data.usuario.nombre_completo;
+      
       setState(old=>({
         ...old,
         idUser: usuario.id,
