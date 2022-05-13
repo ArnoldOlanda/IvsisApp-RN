@@ -48,7 +48,7 @@ export const groupListStyles = StyleSheet.create({
         height: windowHeight * 0.7,
         backgroundColor:'white',
         borderRadius:20,
-        
+    
         padding: 10
     }  
 })
