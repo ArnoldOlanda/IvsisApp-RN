@@ -42,5 +42,13 @@ export const groupListStyles = StyleSheet.create({
         borderRadius:20,
         bottom: -20,
         padding: 10
-    } 
+    },
+    modalContainer2:{
+        width: windowWidth,
+        height: windowHeight * 0.7,
+        backgroundColor:'white',
+        borderRadius:20,
+        
+        padding: 10
+    }  
 })
