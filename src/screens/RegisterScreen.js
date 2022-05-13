@@ -1,26 +1,56 @@
-import { StackScreenProps } from '@react-navigation/stack';
 import React, { useState } from 'react'
-import { Text, View, Button, TextInput, TouchableOpacity, Image, ToastAndroid } from 'react-native';
+import { Text, View, TextInput, TouchableOpacity, Image, ToastAndroid, ScrollView } from 'react-native';
 import { styles } from '../theme/appTheme';
+import { url_base } from '../config/variables'
 
 
 export const RegisterScreen = ({ navigation }) => {
     
-    const [data, setData] = useState({
-        nombre:'',
-        apellidos:'',
-        direccion:'',
-        usuario:'',
-        password:''
-    })
+    const [nombre, setNombre] = useState('')
+    const [apellidos, setApellidos] = useState('')
+    const [direccion, setDireccion] = useState('')
+    const [usuario, setUsuario] = useState('')    
+    const [password, setPassword] = useState('')
 
-    const onPressRegister = () => {
+    const onPressRegister = async () => {
         
-        let element //Especificar que elementos va a manejar el iterador
+        if( nombre.length    < 1 ||
+            apellidos.length < 1 ||
+            direccion.length < 1 ||
+            usuario.length   < 1 ||
+            password.length  < 1 ) {
+                return ToastAndroid.show('Llene todos los campos',ToastAndroid.SHORT)
+            }
+        const nombreCompleto =  `${ nombre } ${ apellidos }`;
 
-        for (element in data) {   
-            if(data[element].length<1) return ToastAndroid.show('Llene todos los campos',ToastAndroid.SHORT)
+        const body = {
+            nombre:nombreCompleto,
+            usuario,
+            password,
+            direccion
         }
+
+        console.log(body);
+
+        const response = await fetch(`${ url_base }/api/usuarios`,{
+            method:'POST',
+            body:JSON.stringify(body),
+            headers: { 'Content-Type': 'application/json' }
+        })
+
+        const data = await response.json()
+
+        if (response.status == 400){
+            return console.log( data.err );
+        }
+
+        ToastAndroid.show(data.msg,ToastAndroid.SHORT);
+
+        setNombre('');
+        setApellidos('');
+        setDireccion('');
+        setUsuario('');
+        setPassword('');
 
         navigation.navigate('LoginScreen')
     }
@@ -36,38 +66,50 @@ export const RegisterScreen = ({ navigation }) => {
                 </View>
 
                 <Text style={styles.title}>Registrate</Text>
-                <TextInput
-                style={styles.input} 
-                placeholder='Nombre' 
-                />
+                <ScrollView>
+                    <TextInput
+                    style={styles.input} 
+                    placeholder='Nombre'
+                    value={nombre}
+                    onChangeText={setNombre} 
+                    />
 
-                <TextInput
-                style={styles.input} 
-                placeholder='Apellidos' 
-                />
+                    <TextInput
+                    style={styles.input} 
+                    placeholder='Apellidos'
+                    value={apellidos}
+                    onChangeText={setApellidos} 
+                    />
 
-                <TextInput
-                style={styles.input} 
-                placeholder='Direccion' 
-                />
+                    <TextInput
+                    style={styles.input} 
+                    placeholder='Direccion'
+                    value={direccion}
+                    onChangeText={setDireccion} 
+                    />
 
-                <TextInput
-                style={styles.input} 
-                placeholder='Usuario' 
-                />
+                    <TextInput
+                    style={styles.input} 
+                    placeholder='Usuario'
+                    value={usuario}
+                    onChangeText={setUsuario} 
+                    />
 
-                <TextInput
-                style={styles.input} 
-                placeholder='Password' 
-                secureTextEntry
-                />
+                    <TextInput
+                    style={styles.input} 
+                    placeholder='Password'
+                    value={password}
+                    onChangeText={setPassword} 
+                    secureTextEntry
+                    />
 
-                 <TouchableOpacity 
-                style={styles.primaryButton}
-                onPress={onPressRegister}
-                >
-                    <Text style={styles.primaryButtonText}>Registrarse</Text>
-                </TouchableOpacity>
+                    <TouchableOpacity 
+                    style={styles.primaryButton}
+                    onPress={onPressRegister}
+                    >
+                        <Text style={styles.primaryButtonText}>Registrarse</Text>
+                    </TouchableOpacity>
+                </ScrollView>
             </View>
            
         </View>

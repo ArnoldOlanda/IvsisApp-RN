@@ -14,11 +14,10 @@ export const Dashboard = ({ navigation }) => {
         })  
     },[])
 
-    useEffect(() =>{
+    useEffect(() => {
         navigation.addListener('beforeRemove', (e) => {
             
             e.preventDefault();
-            
             // Prompt the user before leaving the screen
             Alert.alert(
             'Salir',
@@ -39,11 +38,9 @@ export const Dashboard = ({ navigation }) => {
                     return navigation.dispatch(e.data.action)
                 },
                 },
-            ]
-            );
-        }),
-        []
-    });
+            ]);
+        });
+    },[navigation]);
 
     return (
         <View style={dashBoardScreenStyles.container}>

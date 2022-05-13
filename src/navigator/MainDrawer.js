@@ -25,9 +25,9 @@ export const MainDrawer = ( ) => {
                 headerTitleAlign:'center',
                 headerTitleStyle:{ color:'#fff' },
                 headerTintColor:'#fff',
-                headerLeftContainerStyle:{ marginLeft:10, },
-                headerRightContainerStyle:{ marginRight:20 },
-                headerRight:()=>( <Icon name="settings-sharp" size={30} color="#fff" /> ),
+                headerLeftContainerStyle:{ marginLeft: 10 },
+                headerRightContainerStyle:{ marginRight: 20 },
+                headerRight:()=>( <Icon name="settings-sharp" size={25} color="#fff" /> ),
             }}
             drawerContent = { (props) => <MenuInterno {...props}/> }
             
