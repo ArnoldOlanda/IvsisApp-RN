@@ -5,7 +5,7 @@ const windowWidth = Dimensions.get('window').width;
 const windowHeight = Dimensions.get('screen').height;
 
 
-export const groupListStyles = StyleSheet.create({
+export const contactsListStyles = StyleSheet.create({
     input : {
         marginHorizontal:30,
         borderRadius:20,
@@ -15,12 +15,12 @@ export const groupListStyles = StyleSheet.create({
         height: 50,
         width: windowWidth * 0.8,
     },
-    searchGroupContainer:{
+    searchContactContainer:{
         marginLeft:10,
         flexDirection:'row',
         alignItems:'center'
     },
-    groupListItemContainer:{
+    contactListItemContainer:{
         marginVertical:10,
         paddingHorizontal:15,
         flexDirection:'row'
@@ -42,13 +42,5 @@ export const groupListStyles = StyleSheet.create({
         borderRadius:20,
         bottom: -20,
         padding: 10
-    },
-    modalContainer2:{
-        width: windowWidth,
-        height: windowHeight * 0.7,
-        backgroundColor:'white',
-        borderRadius:20,
-    
-        padding: 10
-    }  
+    } 
 })

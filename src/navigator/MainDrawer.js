@@ -6,6 +6,7 @@ import { drawerStyles } from '../theme/drawerTheme';
 import { GroupsStack } from './GroupsStack';
 
 import Icon from 'react-native-vector-icons/Ionicons';
+import { ContactsStack } from './ContactsStack';
 
 
 
@@ -33,6 +34,7 @@ export const MainDrawer = ( ) => {
             
         >
             <Drawer.Screen name="Dashboard" component={ Dashboard } />
+            <Drawer.Screen name="ContactsStack" component={ ContactsStack } />
             <Drawer.Screen 
             name="GroupsStack" 
             component={ GroupsStack } 

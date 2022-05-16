@@ -1,12 +1,14 @@
 import React, { useState,useContext } from 'react'
-import { View, Text, TouchableOpacity, TextInput, Dimensions,ToastAndroid } from 'react-native'
+import { View, Text, TouchableOpacity, TextInput, Dimensions,ToastAndroid,ScrollView} from 'react-native'
 import { AuthContext } from '../../context/AuthContext'
 import { useFetch } from '../../hooks/useFetch'
 import { dashBoardScreenStyles, styles } from '../../theme/appTheme'
 import { colors } from '../../theme/colors'
-
-import Icon from 'react-native-vector-icons/Ionicons';
+import { Contact} from '../../components/groupList/Contact'
+import Icon from 'react-native-vector-icons/AntDesign';
 import { url_base } from '../../config/variables'
+import Modal from 'react-native-modal'
+import { groupListStyles } from '../../theme/groupListTheme'
 
 export const NewGroupScreen = ({ navigation }) => {
 
@@ -18,7 +20,9 @@ export const NewGroupScreen = ({ navigation }) => {
   const [number, setNumber] = useState('')
   
   const windowWidth = Dimensions.get('window').width;
-
+  const [isModalVisible, setIsModalVisible] = useState(false);
+  const [refreshing, setRefreshing] = useState(false)
+  
   const onPressRegister = async() => {
     if(password !== confirmPassword) return ToastAndroid.show('Los passwords no coinciden',ToastAndroid.SHORT);
     if(number < 10) return ToastAndroid.show('El numero maximo de usuarios no puede ser menor a 10',ToastAndroid.LONG);
@@ -63,7 +67,12 @@ export const NewGroupScreen = ({ navigation }) => {
       console.log(error);
     }
   }
+ 
+  const onPressAddContacts = async() => {
+    setIsModalVisible(true)
+  }
 
+  
   return (
     <View style={{...dashBoardScreenStyles.container, paddingTop:0, paddingHorizontal: 5 }}>
       
@@ -104,7 +113,12 @@ export const NewGroupScreen = ({ navigation }) => {
 
             />
           </View>
-          
+          <TouchableOpacity
+          style={styles.addContactsButton}
+          onPress={ onPressAddContacts }
+          >
+            <Text style={styles.primaryButtonText} >Agregar numeros de contacto</Text>
+          </TouchableOpacity>
 
           <TouchableOpacity
           style={styles.createButton}
@@ -112,6 +126,53 @@ export const NewGroupScreen = ({ navigation }) => {
           >
             <Text style={styles.primaryButtonText} >Crear</Text>
           </TouchableOpacity>
+          <Modal
+            isVisible = { isModalVisible }
+            animationIn={'slideInUp'}
+            //onBackdropPress={()=>setIsModalVisible(false)}
+            onBackButtonPress={()=>setIsModalVisible(false)}
+            style={{margin:0}}
+            >
+              <View style={groupListStyles.modalContainer2}>
+                <View style={{flexDirection:'row',justifyContent:"space-evenly"}}>
+                  <Text style={{fontSize:20,width:windowWidth*0.85,textAlign:"center"}}>Lista de contactos</Text>
+                  <TouchableOpacity
+                  onPress={()=> setIsModalVisible(false)}
+                  >
+                   <Icon name='close' size={30} color='gray' />
+                  </TouchableOpacity>
+                </View>
+                
+                <View style={{
+                    paddingTop: 20,
+                    paddingHorizontal:10,
+                    flex: 1
+                }}>
+                    <ScrollView
+                      
+                      >
+                        { 
+                        
+                          //console.log(state.groupList)
+                          [1,2,3,4,5,6,7,8,9,10].map((e,i)=>( <Contact key={i} data={e} /> ))
+                          
+                          //(<Text style={{color:colors.textPrimary}}>Loading...</Text>)*/
+                          //<Contact></Contact>
+                        }
+
+                    </ScrollView>
+                    <View style={{alignItems:"center"}}>
+                    <TouchableOpacity
+                      style={styles.fabBtn2}
+                      onPress={()=> setIsModalVisible(false)}
+                      
+                      >
+                        <Icon name='check' size={35} color='#fff' />
+                      </TouchableOpacity>
+                    </View>
+                </View>
+            </View>       
+          </Modal>
       </View>
     </View>
   )

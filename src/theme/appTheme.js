@@ -53,6 +53,15 @@ export const styles = StyleSheet.create({
         justifyContent:'center',
         alignItems:'center'
     },
+    addContactsButton:{
+        backgroundColor:colors.buttonSecondary,
+        marginHorizontal:30,
+        marginVertical:10,
+        borderRadius:20,
+        height: 40,
+        justifyContent:'center',
+        alignItems:'center'
+    },
     primaryButton:{
         backgroundColor:colors.buttonPrimary,
         marginHorizontal:70,
@@ -87,6 +96,14 @@ export const styles = StyleSheet.create({
         bottom: 20,
         right: 20
 
+    },
+    fabBtn2:{
+        width: 70,
+        height: 70,
+        borderRadius:50,
+        backgroundColor:colors.buttonPrimary,
+        justifyContent:'center',
+        alignItems:'center',
     }
 });
 

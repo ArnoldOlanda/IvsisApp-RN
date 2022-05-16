@@ -63,7 +63,10 @@ export const Dashboard = ({ navigation }) => {
                     <Text style={dashBoardScreenStyles.categoryButtonText}>Registrar camara</Text>
                 </TouchableOpacity>
                 
-                <TouchableOpacity style={dashBoardScreenStyles.categoryButton}>
+                <TouchableOpacity 
+                style={dashBoardScreenStyles.categoryButton}
+                onPress={()=>navigation.navigate('ContactsStack')}
+                >
                     <Image source={require('../assets/images/Phone.png')}/>
                     <Text style={dashBoardScreenStyles.categoryButtonText}>Contactos</Text>
                 </TouchableOpacity>
