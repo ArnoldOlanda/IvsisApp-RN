@@ -4,7 +4,9 @@ export const authState = {
     idUser:undefined,
     nombre:undefined,
     token:undefined,
-    groupList:[]
+    groupList:[],
+    contactList:[],
+    groupContactList:[]
 }
 
 export const AuthContext = createContext();
