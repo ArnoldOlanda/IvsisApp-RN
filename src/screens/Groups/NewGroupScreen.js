@@ -115,6 +115,7 @@ export const NewGroupScreen = ({ navigation }) => {
   }
 
   const onPressAddContacts = async() => {
+    state.groupContactList=[];
     setIsModalVisible(true)
     fetchData();
   }
@@ -184,8 +185,7 @@ export const NewGroupScreen = ({ navigation }) => {
                 <View style={{flexDirection:'row',justifyContent:"space-evenly"}}>
                   <Text style={{fontSize:20,width:windowWidth*0.85,textAlign:"center"}}>Lista de contactos</Text>
                   <TouchableOpacity
-                  onPress={()=> {setIsModalVisible(false)
-                  state.groupContactList=[]}
+                  onPress={()=> {setIsModalVisible(false)}
                   
                   }
                   >

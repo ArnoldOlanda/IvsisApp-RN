@@ -9,6 +9,7 @@ import { groupListStyles } from '../../theme/groupListTheme'
 import { colors } from '../../theme/colors'
 import { url_base } from '../../config/variables';
 import { contactStyles } from '../../theme/contactTheme'
+import { createIconSetFromFontello } from 'react-native-vector-icons';
 
 
 
@@ -27,6 +28,7 @@ export const Contact = ({ data }) => {
             const newArray= state.groupContactList.filter(e=>{return (e.id !=data.id)})
             state.groupContactList=newArray
         }
+        console.log(state.groupContactList)
         
     };
     return (
