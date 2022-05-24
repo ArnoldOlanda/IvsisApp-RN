@@ -7,6 +7,7 @@ import { GroupsStack } from './GroupsStack';
 
 import Icon from 'react-native-vector-icons/Ionicons';
 import { ContactsStack } from './ContactsStack';
+import { RegisterCameraScreen } from '../screens/Camera/RegisterCameraScreen';
 
 
 
@@ -35,6 +36,7 @@ export const MainDrawer = ( ) => {
         >
             <Drawer.Screen name="Dashboard" component={ Dashboard } />
             <Drawer.Screen name="ContactsStack" component={ ContactsStack } />
+            <Drawer.Screen name="RegisterCameraScreen" options={{ headerShown:false }} component={ RegisterCameraScreen } />
             <Drawer.Screen 
             name="GroupsStack" 
             component={ GroupsStack } 

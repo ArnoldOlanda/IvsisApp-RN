@@ -1,13 +1,17 @@
-import React, { useState,useContext } from 'react'
+import React, { useState,useContext,useEffect } from 'react'
 import { Image, Text, TextInput, TouchableOpacity, View,ToastAndroid } from 'react-native';
+import messaging from '@react-native-firebase/messaging';
+
 import { styles } from '../theme/appTheme';
 import { AuthContext } from '../context/AuthContext';
+import { url_base } from '../config/variables';
+
 
 export const LoginScreen = ({ navigation }) => {
   const [user, setUser] = useState('');
   const [password, setPassword] = useState('');
 
-  const { setState } = useContext(AuthContext);
+  const { state,setState } = useContext(AuthContext);
 
   const onPressLogin = async () => {
     if(user.length < 1 || password.length < 1 ){
@@ -20,7 +24,7 @@ export const LoginScreen = ({ navigation }) => {
         password
       })
   
-      const response = await fetch('https://ivsis-api.herokuapp.com/api/auth/login',{
+      const response = await fetch(`${url_base}/api/auth/login`,{
         method:'POST',
         body,
         headers: {
@@ -30,6 +34,8 @@ export const LoginScreen = ({ navigation }) => {
       })
   
       if(response.status == 400){
+        const dat = await response.json()
+        console.log(dat);
         return ToastAndroid.show('Datos incorrectos intente de nuevo',ToastAndroid.SHORT);
       }
   
@@ -39,6 +45,7 @@ export const LoginScreen = ({ navigation }) => {
       const data = await response.json();
       const { usuario } = data;
       const nombre = data.usuario.nombre_completo;
+
       
       setState(old=>({
         ...old,
@@ -47,14 +54,88 @@ export const LoginScreen = ({ navigation }) => {
         //token: data.token
       }));
 
+      //saveTokenToDatabase(state.token)
   
-  
-      // ToastAndroid.show(`Loggin as ${ nombre }`,ToastAndroid.SHORT);
+      ToastAndroid.show(`Loggin as ${ nombre }`,ToastAndroid.SHORT);
       navigation.navigate('MainDrawer')
     } catch (error) {
       console.log(error);
     }
+    
+    ///////////////////////// Auth //////////////////////////////////////////////
+    // try {
+    //   await auth().signInWithEmailAndPassword(user,password)
+    //   console.log("Login exitoso");
+    //   ToastAndroid.show(`Loggin as ${ state.nombre }`,ToastAndroid.SHORT);
+    //   console.log(state.nombre);
+    // } catch (error) {
+    //   console.log(error);
+    // }
+
   }
+
+  const saveTokenToDatabase = async (token) =>{
+
+   try {
+    if(state.idUser!==undefined){
+      const response = await fetch(`${ url_base }/api/usuarios/updateNotificationToken`,{
+        method:'PUT',
+          body:JSON.stringify({
+            id:state.idUser,
+            token
+          }),
+          headers: {
+            Accept: 'application/json',
+            'Content-Type': 'application/json'
+          },
+      })
+  
+      if(response.status===400){
+        const {err} = await response.json();
+        console.log(err);
+        return;
+      }
+      const data = await response.json();
+      console.log(data);
+  
+      setState(old=>({
+        ...old,
+        token
+      }))
+    }
+   } catch (error) {
+     console.log(error);
+   }
+  }
+
+  useEffect(()=>{
+    messaging().getToken().then(token => {
+      console.log(token);
+      return saveTokenToDatabase( token );
+    })
+
+    // Listen to whether the token changes
+    return messaging().onTokenRefresh(token => {
+      saveTokenToDatabase(token);
+    });
+
+  },[state.idUser])
+
+    //Push notifications
+    useEffect(() => {
+      const unsubscribe = messaging().onMessage(async remoteMessage => {
+        console.log("Notificacion recibida", remoteMessage);
+      });
+  
+      const backgroundSuscriber = messaging().setBackgroundMessageHandler(async (remoteMessage)=> {
+        console.log('Notificacion en background', remoteMessage);
+      })
+  
+      return ()=>{
+        unsubscribe();
+        backgroundSuscriber();
+      };
+    }, []);
 
   return (
     <View style={styles.container} >

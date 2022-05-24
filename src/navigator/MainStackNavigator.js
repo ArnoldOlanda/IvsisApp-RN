@@ -1,19 +1,13 @@
-import React from 'react';
+import React,{useState, useContext, useEffect} from 'react';
 import { createStackNavigator } from '@react-navigation/stack';
 import { LoginScreen } from '../screens/LoginScreen';
 import { RegisterScreen } from '../screens/RegisterScreen';
 import { MainDrawer } from './MainDrawer';
 
-//Definimos los parametros para cada uno de nuestros screen que estan en el stack
-// export type RouteStackParams = {
-//   LoginScreen:undefined,
-//   RegisterScreen:undefined,
-//   MainDrawer:{ nombre:string }
-// }
-
 const Stack = createStackNavigator();
 
 export const MainStackNavigator = () => {
+
   return (
     <Stack.Navigator
       screenOptions={{

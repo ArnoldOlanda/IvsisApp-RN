@@ -54,6 +54,28 @@ export const RegisterScreen = ({ navigation }) => {
 
         navigation.navigate('LoginScreen')
     }
+
+    // const onPressRegister = async () => {
+    //     auth()
+    //         .createUserWithEmailAndPassword(usuario, password)
+    //         .then(() => {
+    //             console.log('User account created & signed in!');
+    //             ToastAndroid.show('User account created & signed in!',ToastAndroid.SHORT)
+    //         })
+    //         .catch(error => {
+    //             if (error.code === 'auth/email-already-in-use') {
+    //             console.log('That email address is already in use!');
+    //             ToastAndroid.show('That email address is already in use!',ToastAndroid.SHORT)
+    //             }
+
+    //             if (error.code === 'auth/invalid-email') {
+    //             console.log('That email address is invalid!');
+    //             ToastAndroid.show('That email address is invalid!',ToastAndroid.SHORT)
+    //             }
+
+    //             console.error(error);
+    //         });
+    // }
     
     return (
         <View style={styles.container}>

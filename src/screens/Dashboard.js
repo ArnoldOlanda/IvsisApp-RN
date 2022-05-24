@@ -58,7 +58,10 @@ export const Dashboard = ({ navigation }) => {
                     <Text style={dashBoardScreenStyles.categoryButtonText}>Ver camaras</Text>
                 </TouchableOpacity>
                 
-                <TouchableOpacity style={dashBoardScreenStyles.categoryButton}>
+                <TouchableOpacity 
+                style={dashBoardScreenStyles.categoryButton}
+                onPress={()=>navigation.navigate('RegisterCameraScreen')}
+                >
                     <Image source={require('../assets/images/camera.png')}/>
                     <Text style={dashBoardScreenStyles.categoryButtonText}>Registrar camara</Text>
                 </TouchableOpacity>

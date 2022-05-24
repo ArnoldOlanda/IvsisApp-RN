@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "919331609734",
+    "project_id": "ivsisapp-rn",
+    "storage_bucket": "ivsisapp-rn.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:919331609734:android:f241815abe3e8d151ec507",
+        "android_client_info": {
+          "package_name": "com.ivsisappjs"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "919331609734-708snfsthiafpea05pah8i6bfedstuqh.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCcJhcB7SH9hL-BDFq48gtKJme8n_Gc0MM"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "919331609734-708snfsthiafpea05pah8i6bfedstuqh.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

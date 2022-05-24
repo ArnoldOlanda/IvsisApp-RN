@@ -7,7 +7,7 @@ import { colors } from '../../theme/colors'
 
 export const JoinGroupScreen = ({ navigation }) => {
 
-  const { setState } = useContext(AuthContext)
+  const { state, setState } = useContext(AuthContext)
 
   const [nombre, setNombre] = useState('')
   const [password, setPassword] = useState('')
@@ -20,22 +20,32 @@ export const JoinGroupScreen = ({ navigation }) => {
     if(nombre.length<1 || password.length < 1) return ToastAndroid.show('Llene todos los campos',ToastAndroid.SHORT);
 
     try {
-      const response = await fetch(`${ url_base }/api/grupo/query/${ nombre }`,{
-        method:'GET',
+      const response = await fetch(`${ url_base }/api/usuarios/joinGroup`,{
+        method:'PUT',
+        body:JSON.stringify({
+          usuario:state.idUser,
+          grupo:nombre,
+          password
+        }),
         headers: {
         Accept: 'application/json',
         'Content-Type': 'application/json'
         }});
 
-      const { data } = await response.json();
-      console.log(data);
+      if (response.status===400) {
+        const {err} = await response.json()
+        console.log(err);
+        return;
+      }
+      const { msg } = await response.json();
+      console.log(msg);
 
       setState(old=>({
         ...old,
         groupList:[...old.groupList,{
-          id:data.id,
-          nombre:data.nombre,
-          usuarios_max:data.usuarios_max
+          id:1000,
+          nombre,
+          usuarios_max:50
         }]
       }))
 
