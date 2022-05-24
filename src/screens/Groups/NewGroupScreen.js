@@ -1,4 +1,4 @@
-import React, { useState,useContext } from 'react'
+import React, { useEffect,useState,useContext } from 'react'
 import { View, Text, TouchableOpacity, TextInput, Dimensions,ToastAndroid,ScrollView} from 'react-native'
 import { AuthContext } from '../../context/AuthContext'
 import { useFetch } from '../../hooks/useFetch'
@@ -22,17 +22,51 @@ export const NewGroupScreen = ({ navigation }) => {
   const windowWidth = Dimensions.get('window').width;
   const [isModalVisible, setIsModalVisible] = useState(false);
   const [refreshing, setRefreshing] = useState(false)
+
+  //recuperar lista de contactos
+  const fetchData = async () => {
+    const response = await fetch(`${ url_base }/api/usuarios/contactos/${ state.idUser }`,{
+      method:'GET',
+      headers: {
+        Accept: 'application/json',
+        'Content-Type': 'application/json'
+      }});
+      
+    const data = await response.json();
+   
+
+    setState(old=>({
+      ...old,
+      contactList:data.data
+    }));
+    
+  }
+
+  const handleRefreshData = () => {
+    setRefreshing(true);
+    fetchData();
+    setRefreshing(false);
+  }
+  
+  useEffect(()=>{
+
+    fetchData();
+
+
+  },[])
   
   const onPressRegister = async() => {
     if(password !== confirmPassword) return ToastAndroid.show('Los passwords no coinciden',ToastAndroid.SHORT);
     if(number < 10) return ToastAndroid.show('El numero maximo de usuarios no puede ser menor a 10',ToastAndroid.LONG);
 
     try {
+      console.log(state.groupContactList);
       const body= {
         nombre,
         password,
         maxUser:parseInt(number),
-        idAdmin:parseInt(state.idUser)
+        idAdmin:parseInt(state.idUser),
+        contactos:state.groupContactList
       }
       //Guardar el grupo
       await fetch(`${ url_base }/api/grupo/`,{
@@ -67,9 +101,22 @@ export const NewGroupScreen = ({ navigation }) => {
       console.log(error);
     }
   }
- 
+  const BuildContacs = () => {
+
+    
+    
+    
+    if (state.contactList.length < 1){
+      return <Text style={{ color: 'gray', fontSize: 16 }}> No tiene contactos </Text>
+              
+    }else
+      return state.contactList.map((e,i)=>( <Contact key={i} data={e} /> ))
+
+  }
+
   const onPressAddContacts = async() => {
     setIsModalVisible(true)
+    fetchData();
   }
 
   
@@ -137,7 +184,10 @@ export const NewGroupScreen = ({ navigation }) => {
                 <View style={{flexDirection:'row',justifyContent:"space-evenly"}}>
                   <Text style={{fontSize:20,width:windowWidth*0.85,textAlign:"center"}}>Lista de contactos</Text>
                   <TouchableOpacity
-                  onPress={()=> setIsModalVisible(false)}
+                  onPress={()=> {setIsModalVisible(false)
+                  state.groupContactList=[]}
+                  
+                  }
                   >
                    <Icon name='close' size={30} color='gray' />
                   </TouchableOpacity>
@@ -154,7 +204,9 @@ export const NewGroupScreen = ({ navigation }) => {
                         { 
                         
                           //console.log(state.groupList)
-                          [1,2,3,4,5,6,7,8,9,10].map((e,i)=>( <Contact key={i} data={e} /> ))
+                          <BuildContacs/>
+                          
+                          
                           
                           //(<Text style={{color:colors.textPrimary}}>Loading...</Text>)*/
                           //<Contact></Contact>
@@ -164,7 +216,9 @@ export const NewGroupScreen = ({ navigation }) => {
                     <View style={{alignItems:"center"}}>
                     <TouchableOpacity
                       style={styles.fabBtn2}
-                      onPress={()=> setIsModalVisible(false)}
+                      onPress={()=> {
+                        setIsModalVisible(false)}
+                        }
                       
                       >
                         <Icon name='check' size={35} color='#fff' />
