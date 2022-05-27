@@ -2,6 +2,7 @@
 import React from 'react';
 import { createStackNavigator } from '@react-navigation/stack';
 import { ContactsListScreen } from '../screens/Groups/ContactsListScreen';
+import { ContactsList } from '../screens/Contacts/ContactsList';
 
 
 const Stack = createStackNavigator();
@@ -18,7 +19,7 @@ export const ContactsStack = () => {
         headerShown:false //Oculta el header del stack
       }}
     >
-      <Stack.Screen name="ContactsListScreen" component={ ContactsListScreen } />
+      <Stack.Screen name="ContactsList" options={{ title:"Lista de contactos" }} component={ ContactsList } />
       
     </Stack.Navigator>
   );

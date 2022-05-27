@@ -28,14 +28,14 @@ export const MainDrawer = ( ) => {
                 headerTitleStyle:{ color:'#fff' },
                 headerTintColor:'#fff',
                 headerLeftContainerStyle:{ marginLeft: 10 },
-                headerRightContainerStyle:{ marginRight: 20 },
+                headerRightContainerStyle:{ marginRight: 10 },
                 headerRight:()=>( <Icon name="settings-sharp" size={25} color="#fff" /> ),
             }}
             drawerContent = { (props) => <MenuInterno {...props}/> }
             
         >
             <Drawer.Screen name="Dashboard" component={ Dashboard } />
-            <Drawer.Screen name="ContactsStack" component={ ContactsStack } />
+            <Drawer.Screen name="ContactsStack" options={{ title:"Lista de contactos" }} component={ ContactsStack } />
             <Drawer.Screen name="RegisterCameraScreen" options={{ headerShown:false }} component={ RegisterCameraScreen } />
             <Drawer.Screen 
             name="GroupsStack" 

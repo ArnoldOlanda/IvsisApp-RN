@@ -4,7 +4,6 @@ import { View, Text, TouchableOpacity, TextInput,ScrollView,RefreshControl } fro
 import { AuthContext } from '../../context/AuthContext'
 import Icon from 'react-native-vector-icons/Ionicons';
 
-import { useFetch } from '../../hooks/useFetch'
 import { GroupListItem } from '../../components/groupList/GroupListItem'
 import { dashBoardScreenStyles, styles } from '../../theme/appTheme'
 import { colors } from '../../theme/colors'
@@ -16,8 +15,6 @@ export const GroupListScreen = ({ navigation }) => {
 
   const { state,setState } = useContext(AuthContext);
   const [refreshing, setRefreshing] = useState(false)
-  
-  // const { data } = useFetch(`http://192.168.1.34:5000/api/grupo/${ state.idUser }`,undefined,undefined)
 
   const fetchData = async () => {
     const response = await fetch(`${ url_base }/api/grupo/${ state.idUser }`,{
@@ -44,7 +41,6 @@ export const GroupListScreen = ({ navigation }) => {
   useEffect(()=>{
 
     fetchData();
-
 
   },[])
 
@@ -77,15 +73,12 @@ export const GroupListScreen = ({ navigation }) => {
       }
       >
         { 
-          //console.log(state.groupList)
           state.groupList.map((e,i)=>( <GroupListItem key={i} data={e} /> ))
-          // (<Text style={{color:colors.textPrimary}}>Loading...</Text>)
         }
       </ScrollView>
 
       <TouchableOpacity
       style={styles.fabBtn}
-      // onPress={()=>navigation.navigate('CreateGroupTabs')}
       onPress={()=>navigation.navigate('CreateGroupTabs')}
       >
         <Icon name='enter' size={35} color='#fff' />
@@ -93,4 +86,3 @@ export const GroupListScreen = ({ navigation }) => {
     </View>
   )
 }
-//TODO: Soluccionar bug referente al goback() confirmar cierre de sesion
