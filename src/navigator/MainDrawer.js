@@ -59,12 +59,45 @@ const MenuInterno = ({ navigation }) => {
             </View>
             <View style={drawerStyles.menuContainer}>
                 <TouchableOpacity style={drawerStyles.menuItem}>
-                    <Text style={drawerStyles.menuItemText}>Home</Text>
+                    <Icon name='person-outline' size={25} color='#000' style={{paddingRight:10}} />
+                    <Text style={drawerStyles.menuItemText}>
+                        Mi perfil
+                    </Text>
+                </TouchableOpacity>
+
+                <TouchableOpacity 
+                style={drawerStyles.menuItem}
+                onPress={()=>navigation.navigate('Dashboard')}
+                >
+                    <Icon name='home-outline' size={25} color='#000' style={{paddingRight:10}} />
+                    <Text style={drawerStyles.menuItemText}>
+                        Home</Text>
                 </TouchableOpacity>
 
                 <TouchableOpacity style={drawerStyles.menuItem}>
-                    <Text style={drawerStyles.menuItemText}>Camaras</Text>
+                    <Icon name='videocam-outline' size={25} color='#000' style={{paddingRight:10}} />
+                    <Text style={drawerStyles.menuItemText}>
+                        Camaras</Text>
                 </TouchableOpacity>
+
+                <TouchableOpacity 
+                style={drawerStyles.menuItem}
+                onPress={()=>navigation.navigate('GroupsStack')}
+                >
+                    <Icon name='people-outline' size={25} color='#000' style={{paddingRight:10}} />
+                    <Text style={drawerStyles.menuItemText}>Grupos</Text>
+                </TouchableOpacity>
+
+                <TouchableOpacity 
+                style={drawerStyles.menuItem}
+                onPress={()=>navigation.navigate('ContactsStack')}
+                >
+                    <Icon name='call-outline' size={25} color='#000' style={{paddingRight:10}} />
+                    <Text style={drawerStyles.menuItemText}>
+                        Mis contactos
+                    </Text>
+                </TouchableOpacity>
+
             </View>
             
             <TouchableOpacity
