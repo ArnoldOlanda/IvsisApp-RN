@@ -14,18 +14,16 @@ export const drawerStyles = StyleSheet.create({
     },
     menuContainer:{
         paddingLeft:20,
-        height: height * 0.7,
+        height: height * 0.6,
         justifyContent:'flex-start'
     },
     menuItem:{
-        flexDirection:'row',
-        marginVertical:10
+        marginVertical:5
     },  
     menuItemText:{
         fontSize:18
     },
     btnLogout:{
-        bottom: 20,
         alignSelf:'center',
         backgroundColor:'red',
         width: width * 0.4,

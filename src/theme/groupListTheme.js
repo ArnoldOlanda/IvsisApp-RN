@@ -48,6 +48,7 @@ export const groupListStyles = StyleSheet.create({
         height: windowHeight * 0.7,
         backgroundColor:'white',
         borderRadius:20,
+    
         padding: 10
     },
     modalEditContainer:{
@@ -64,5 +65,5 @@ export const groupListStyles = StyleSheet.create({
         borderColor:colors.buttonPrimary,
         marginVertical:5,
         paddingHorizontal:10
-    } 
+    }   
 })

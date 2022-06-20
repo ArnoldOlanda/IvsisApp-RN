@@ -53,7 +53,10 @@ export const Dashboard = ({ navigation }) => {
                     <Text style={dashBoardScreenStyles.categoryButtonText}>Grupos</Text>
                 </TouchableOpacity>
                 
-                <TouchableOpacity style={dashBoardScreenStyles.categoryButton}>
+                <TouchableOpacity 
+                style={dashBoardScreenStyles.categoryButton}
+                onPress={()=>navigation.navigate('LiveCameraDeteccion')}
+                >
                     <Image source={require('../assets/images/Vector-1.png')}/>
                     <Text style={dashBoardScreenStyles.categoryButtonText}>Ver camaras</Text>
                 </TouchableOpacity>
