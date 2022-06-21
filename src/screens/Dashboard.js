@@ -58,7 +58,7 @@ export const Dashboard = ({ navigation }) => {
                 onPress={()=>navigation.navigate('LiveCameraDeteccion')}
                 >
                     <Image source={require('../assets/images/Vector-1.png')}/>
-                    <Text style={dashBoardScreenStyles.categoryButtonText}>Ver camaras</Text>
+                    <Text style={dashBoardScreenStyles.categoryButtonText}>Ver camaras (BETA)</Text>
                 </TouchableOpacity>
                 
                 <TouchableOpacity 

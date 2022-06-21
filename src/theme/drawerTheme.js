@@ -18,7 +18,8 @@ export const drawerStyles = StyleSheet.create({
         justifyContent:'flex-start'
     },
     menuItem:{
-        marginVertical:5
+        flexDirection:'row',
+        marginVertical:10
     },  
     menuItemText:{
         fontSize:18
