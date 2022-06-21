@@ -172,6 +172,7 @@ export const NewGroupScreen = ({ navigation }) => {
           style={styles.createButton}
           onPress={ onPressRegister }
           >
+            
             <Text style={styles.primaryButtonText} >Crear</Text>
           </TouchableOpacity>
           <Modal

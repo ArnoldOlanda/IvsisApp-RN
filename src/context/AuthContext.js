@@ -7,6 +7,7 @@ export const authState = {
     groupList:[],
     contactList:[],
     groupContactList:[]
+    
 }
 
 export const AuthContext = createContext();
