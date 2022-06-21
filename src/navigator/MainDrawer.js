@@ -8,6 +8,7 @@ import { GroupsStack } from './GroupsStack';
 import Icon from 'react-native-vector-icons/Ionicons';
 import { ContactsStack } from './ContactsStack';
 import { RegisterCameraScreen } from '../screens/Camera/RegisterCameraScreen';
+import { ViewCamerasScreen } from '../screens/Camera/ViewCamerasScreen';
 
 
 
@@ -35,7 +36,12 @@ export const MainDrawer = ( ) => {
             
         >
             <Drawer.Screen name="Dashboard" component={ Dashboard } />
+<<<<<<< HEAD
             <Drawer.Screen name="ContactsStack" options={{ title:"Contactos Emergencia " }} component={ ContactsStack } />
+=======
+            <Drawer.Screen name="LiveCameraDeteccion" component={ ViewCamerasScreen } />
+            <Drawer.Screen name="ContactsStack" options={{ title:"Lista de contactos" }} component={ ContactsStack } />
+>>>>>>> arti
             <Drawer.Screen name="RegisterCameraScreen" options={{ headerShown:false }} component={ RegisterCameraScreen } />
             <Drawer.Screen 
             name="GroupsStack" 
@@ -58,12 +64,47 @@ const MenuInterno = ({ navigation }) => {
                 />
             </View>
             <View style={drawerStyles.menuContainer}>
-                <TouchableOpacity style={drawerStyles.menuItem}>
-                    <Text style={drawerStyles.menuItemText}>Home</Text>
+            <TouchableOpacity style={drawerStyles.menuItem}>
+                    <Icon name='person-outline' size={25} color='#000' style={{paddingRight:10}} />
+                    <Text style={drawerStyles.menuItemText}>
+                        Mi perfil
+                    </Text>
                 </TouchableOpacity>
 
-                <TouchableOpacity style={drawerStyles.menuItem}>
-                    <Text style={drawerStyles.menuItemText}>Camaras</Text>
+                <TouchableOpacity 
+                style={drawerStyles.menuItem}
+                onPress={()=>navigation.navigate('Dashboard')}
+                >
+                    <Icon name='home-outline' size={25} color='#000' style={{paddingRight:10}} />
+                    <Text style={drawerStyles.menuItemText}>
+                        Home</Text>
+                </TouchableOpacity>
+
+                <TouchableOpacity 
+                style={drawerStyles.menuItem}
+                onPress={()=>navigation.navigate('LiveCameraDeteccion')}
+                >
+                    <Icon name='videocam-outline' size={25} color='#000' style={{paddingRight:10}} />
+                    <Text style={drawerStyles.menuItemText}>
+                        Camaras (BETA) </Text>
+                </TouchableOpacity>
+
+                <TouchableOpacity 
+                style={drawerStyles.menuItem}
+                onPress={()=>navigation.navigate('GroupsStack')}
+                >
+                    <Icon name='people-outline' size={25} color='#000' style={{paddingRight:10}} />
+                    <Text style={drawerStyles.menuItemText}>Grupos</Text>
+                </TouchableOpacity>
+
+                <TouchableOpacity 
+                style={drawerStyles.menuItem}
+                onPress={()=>navigation.navigate('ContactsStack')}
+                >
+                    <Icon name='call-outline' size={25} color='#000' style={{paddingRight:10}} />
+                    <Text style={drawerStyles.menuItemText}>
+                        Mis contactos
+                    </Text>
                 </TouchableOpacity>
             </View>
             

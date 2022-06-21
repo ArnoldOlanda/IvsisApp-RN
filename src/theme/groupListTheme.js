@@ -50,5 +50,20 @@ export const groupListStyles = StyleSheet.create({
         borderRadius:20,
     
         padding: 10
-    }  
+    },
+    modalEditContainer:{
+        backgroundColor:'#fff',
+        height:windowHeight * 0.4,
+        borderRadius:20,
+        bottom: -20,
+        width: windowWidth,
+        padding: 10
+    },
+    inputModalStyle:{
+        borderWidth:2,
+        borderRadius:20,
+        borderColor:colors.buttonPrimary,
+        marginVertical:5,
+        paddingHorizontal:10
+    }   
 })

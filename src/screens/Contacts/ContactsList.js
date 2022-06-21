@@ -12,35 +12,28 @@ export const ContactsList = () => {
         contacts:null
     })
 
+    const requestAccessContacts= async() => {
+      try {
+        const granted = await PermissionsAndroid.request(
+          PermissionsAndroid.PERMISSIONS.READ_CONTACTS,
+          );
+          if (granted === PermissionsAndroid.RESULTS.GRANTED) {
+            Contacts.getAll()
+            .then((contacts) =>{
+              setState(old=>({
+                ...old,
+                contacts
+              }));
+            })
+            .catch(console.log)
+          }
+      } catch (error) {
+        console.log(error);
+      }
+    }
     
     useEffect(() => {
-
-        try {
-            PermissionsAndroid.request(
-                PermissionsAndroid.PERMISSIONS.READ_CONTACTS,
-                {
-                    'title': 'Contacts',
-                    'message': 'This app would like to view your contacts.',
-                    'buttonPositive': 'Please accept bare mortal'
-                }
-                )
-            .then(Contacts.getAll()
-                .then((contacts) => {
-                    // work with contacts
-                    console.log(JSON.stringify(contacts,null,2))
-                    setState(old=>({
-                        ...old,
-                        contacts
-                    }));
-                    })
-                    .catch((e) => {
-                        console.log(e)
-                        throw e
-                    }))
-        } catch (error) {
-            console.log(error);
-        }
-       
+        requestAccessContacts()      
     }, [])
 
     const keyExtractor = (item, idx) => {
@@ -72,12 +65,12 @@ export const ContactsList = () => {
       };
 
     return (
-      <View>
+      <View style={{backgroundColor:colors.background}}>
         <FlatList
             data={state.contacts}
             renderItem={renderItem}
             keyExtractor={keyExtractor}
-            style={styles.list}
+            style={{backgroundColor:colors.background}}
         />
         <TouchableOpacity
         style={styles.fabBtn}
