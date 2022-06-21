@@ -18,9 +18,7 @@ var contactList = []
 
 export const ListContacts = ({ navigation }) => {
   
-  const [contacts, setContacts] = useState({
-    contacts:null
-  });
+  const [contacts, setContacts] = useState({});
   const { state,setState } = useContext(AuthContext);
   const [isModalVisible, setIsModalVisible] = useState(false);
   const [refreshing, setRefreshing] = useState(false)
@@ -75,9 +73,8 @@ export const ListContacts = ({ navigation }) => {
   }
   
   useEffect(() => {
-    fetchData();
-    requestAccessContacts()     
-    
+    fetchData();   
+    requestAccessContacts();
   }, [])
 
 
@@ -98,9 +95,14 @@ export const ListContacts = ({ navigation }) => {
           numeros.push(e.numero)
         });
 
-        numeros.includes
-        let temp2 =[]
-        temp2= contacts["contacts"].filter(el => !numeros.includes(el["phoneNumbers"][0]["number"]));
+        
+        let temp2 = contacts["contacts"].filter(el => {
+          if(el.phoneNumbers.length > 1){
+            return !numeros.includes(el["phoneNumbers"][0]["number"])
+          } else {
+            return false
+          }
+        });
           
         return temp2.map((e,i)=>( <Contact key={i} data={e} /> ))
         }
@@ -177,6 +179,7 @@ export const ListContacts = ({ navigation }) => {
       style={styles.fabBtn}
       onPress={()=>{
         setIsModalVisible(true)
+        requestAccessContacts() 
         contactList =[]
         
       }}
@@ -264,7 +267,7 @@ const Contact = ({data}) => {
                 <IconAnt name='user' size={30} style={{color:"gray"}}/>
                 <View >
                     <Text style={{...contactStyles.text,fontSize:20}}>{data["givenName"]}</Text>
-                    <Text style={contactStyles.text}> {data["phoneNumbers"][0]["number"]}</Text>
+                    <Text style={contactStyles.text}> { data.phoneNumbers.length > 1 && data["phoneNumbers"][0]["number"] }</Text>
                 </View>
                 
             </View>

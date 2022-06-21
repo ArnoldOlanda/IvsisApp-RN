@@ -18,7 +18,7 @@ export const contactStyles = StyleSheet.create({
     },
     text:{
         marginHorizontal:20,
-        color: "gray",
+        color: "#fff",
         //height: 20,
         //borderColor:"white",
         //borderWidth:1,

@@ -36,12 +36,8 @@ export const MainDrawer = ( ) => {
             
         >
             <Drawer.Screen name="Dashboard" component={ Dashboard } />
-<<<<<<< HEAD
-            <Drawer.Screen name="ContactsStack" options={{ title:"Contactos Emergencia " }} component={ ContactsStack } />
-=======
             <Drawer.Screen name="LiveCameraDeteccion" component={ ViewCamerasScreen } />
-            <Drawer.Screen name="ContactsStack" options={{ title:"Lista de contactos" }} component={ ContactsStack } />
->>>>>>> arti
+            <Drawer.Screen name="ContactsStack" options={{ title:"Contactos Emergencia" }} component={ ContactsStack } />
             <Drawer.Screen name="RegisterCameraScreen" options={{ headerShown:false }} component={ RegisterCameraScreen } />
             <Drawer.Screen 
             name="GroupsStack" 
