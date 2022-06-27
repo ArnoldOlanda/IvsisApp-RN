@@ -5,15 +5,17 @@ import messaging from '@react-native-firebase/messaging';
 import { styles } from '../theme/appTheme';
 import { AuthContext } from '../context/AuthContext';
 import { url_base } from '../config/variables';
+import AppLoader from '../components/AppLoader';
 
 
 export const LoginScreen = ({ navigation }) => {
   const [user, setUser] = useState('');
   const [password, setPassword] = useState('');
-
+  const [loginPending, setloginPending] = useState(false);
   const { state,setState } = useContext(AuthContext);
 
   const onPressLogin = async () => {
+    setloginPending(true)
     if(user.length < 1 || password.length < 1 ){
       return ToastAndroid.show('Llene todos los campos',ToastAndroid.SHORT)
     }
@@ -61,7 +63,7 @@ export const LoginScreen = ({ navigation }) => {
     } catch (error) {
       console.log(error);
     }
-    
+    setloginPending(false)
     ///////////////////////// Auth //////////////////////////////////////////////
     // try {
     //   await auth().signInWithEmailAndPassword(user,password)
@@ -138,6 +140,7 @@ export const LoginScreen = ({ navigation }) => {
     }, []);
 
   return (
+    <>
     <View style={styles.container} >
 
        <View>
@@ -151,6 +154,7 @@ export const LoginScreen = ({ navigation }) => {
         <TextInput 
         style={styles.input} 
         placeholder='Usuario'
+        placeholderTextColor="#BFBFBF" 
         value={user}
         onChangeText={setUser}
         autoFocus
@@ -158,6 +162,7 @@ export const LoginScreen = ({ navigation }) => {
         <TextInput 
         style = {styles.input} 
         placeholder='Password' 
+        placeholderTextColor="#BFBFBF" 
         secureTextEntry
         value={password}
         onChangeText={setPassword}
@@ -181,5 +186,7 @@ export const LoginScreen = ({ navigation }) => {
         </TouchableOpacity>
       </View>
     </View>
+    {loginPending ? <AppLoader/>: null}
+    </>
   )
 }

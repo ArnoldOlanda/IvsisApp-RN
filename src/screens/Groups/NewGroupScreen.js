@@ -131,12 +131,14 @@ export const NewGroupScreen = ({ navigation }) => {
         <TextInput 
           style={styles.input} 
           placeholder='Nombre del grupo'
+          placeholderTextColor="#BFBFBF" 
           value={nombre}
           onChangeText={setNombre}
           />
           <TextInput 
           style = {styles.input} 
           placeholder='Password' 
+          placeholderTextColor="#BFBFBF" 
           secureTextEntry
           value={password}
           onChangeText={setPassword}
@@ -144,6 +146,7 @@ export const NewGroupScreen = ({ navigation }) => {
           <TextInput 
           style = {styles.input} 
           placeholder='Confirmar Password' 
+          placeholderTextColor="#BFBFBF" 
           secureTextEntry
           value={confirmPassword}
           onChangeText={setconfirmPassword}
@@ -155,6 +158,7 @@ export const NewGroupScreen = ({ navigation }) => {
             <TextInput 
             style={styles.inputNumber} 
             placeholder='0'
+            placeholderTextColor="#BFBFBF" 
             value={number}
             onChangeText={setNumber}
             keyboardType='numeric'
@@ -184,7 +188,7 @@ export const NewGroupScreen = ({ navigation }) => {
             >
               <View style={groupListStyles.modalContainer2}>
                 <View style={{flexDirection:'row',justifyContent:"space-evenly"}}>
-                  <Text style={{fontSize:20,width:windowWidth*0.85,textAlign:"center"}}>Lista de contactos</Text>
+                  <Text style={{fontSize:20,width:windowWidth*0.85,textAlign:"center", color:"gray"}}>Lista de contactos</Text>
                   <TouchableOpacity
                   onPress={()=> {setIsModalVisible(false)}
                   

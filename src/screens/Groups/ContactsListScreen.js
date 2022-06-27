@@ -63,7 +63,8 @@ export const ContactsListScreen = ({ navigation }) => {
 
       <View style={contactsListStyles.searchContactContainer}>
         <TextInput 
-        placeholder='Buscar contactos' 
+        placeholder='Buscar contactos'
+        placeholderTextColor="#BFBFBF"  
         style={{...contactsListStyles.input,marginHorizontal:5}}
         />
         <Icon style={{ paddingLeft: 10 }} name='search-sharp' size={30} color='#fff' />

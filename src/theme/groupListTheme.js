@@ -14,6 +14,8 @@ export const groupListStyles = StyleSheet.create({
         backgroundColor:colors.inputBackground,
         height: 50,
         width: windowWidth * 0.8,
+        color: 'black'
+        
     },
     searchGroupContainer:{
         marginLeft:10,
