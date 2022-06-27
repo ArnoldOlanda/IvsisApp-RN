@@ -1,8 +1,8 @@
 import React,{useState,useContext,label } from 'react'
 import BouncyCheckbox from "react-native-bouncy-checkbox";
-import { Text,View} from 'react-native'
+import { Text,TouchableOpacity,View,Linking} from 'react-native'
 import Modal from 'react-native-modal'
-import Icon from 'react-native-vector-icons/AntDesign';
+import Icon from 'react-native-vector-icons/Ionicons';
 
 import { AuthContext } from '../../context/AuthContext'
 import { groupListStyles } from '../../theme/groupListTheme'
@@ -19,11 +19,20 @@ export const ContactListItem = ({ data }) => {
     return (
         <View style={contactStyles.box}>
             <View style={{flexDirection:'row', alignItems:"center"}}>
-                <Icon name='user' size={30} style={{color:"#fff"}}/>
+                <Icon name='person' size={30} style={{color:"#fff"}}/>
                 <View >
                     <Text style={{...contactStyles.text,fontSize:20}}>{data.alias}</Text>
                     <Text style={contactStyles.text}> {data.numero}</Text>
                 </View>        
+            </View>
+            <View style={{justifyContent:'center'}}>
+                <TouchableOpacity
+                onPress={()=>{
+                    Linking.openURL(`tel:${data.numero}`)
+                }}
+                >
+                    <Icon name='call' size={30} style={{color:'#fff'}}/>
+                </TouchableOpacity>
             </View>
         </View>
     )
