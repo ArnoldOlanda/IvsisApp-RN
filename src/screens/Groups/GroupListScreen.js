@@ -60,6 +60,7 @@ export const GroupListScreen = ({ navigation }) => {
       <View style={groupListStyles.searchGroupContainer}>
         <TextInput 
         placeholder='Buscar grupos' 
+        placeholderTextColor="#BFBFBF" 
         style={{...groupListStyles.input,marginHorizontal:5}}
         />
         <Icon style={{ paddingLeft: 10 }} name='search-sharp' size={30} color='#fff' />

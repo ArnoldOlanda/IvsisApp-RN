@@ -34,7 +34,8 @@ export const styles = StyleSheet.create({
         borderRadius:20,
         paddingHorizontal:20,
         backgroundColor:colors.inputBackground,
-        height: 50
+        height: 50,
+        color: 'black'
     },
     inputNumber : {
         borderRadius:20,

@@ -68,12 +68,14 @@ export const JoinGroupScreen = ({ navigation }) => {
         <TextInput 
           style={styles.input} 
           placeholder='Nombre del Grupo'
+          placeholderTextColor="#BFBFBF" 
           value={nombre}
           onChangeText={setNombre}
           />
           <TextInput 
           style = {styles.input} 
           placeholder='Password' 
+          placeholderTextColor="#BFBFBF" 
           secureTextEntry
           value={password}
           onChangeText={setPassword}
