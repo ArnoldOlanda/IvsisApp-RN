@@ -50,7 +50,7 @@ export const MainDrawer = ( ) => {
 
 const MenuInterno = ({ navigation }) => {
     return (
-        <DrawerContentScrollView>
+        <DrawerContentScrollView style={{backgroundColor:'#fff'}}>
             <View style={drawerStyles.avatarContainer}>
                 <Image 
                     source={{

@@ -3,9 +3,7 @@ import { View, Text, TouchableOpacity, TextInput,ScrollView,RefreshControl,Dimen
 import { AuthContext } from '../../context/AuthContext'
 import Icon from 'react-native-vector-icons/Ionicons';
 import Modal from 'react-native-modal'
-import { GroupListItem } from '../../components/groupList/GroupListItem'
 import { dashBoardScreenStyles, styles } from '../../theme/appTheme'
-import { colors } from '../../theme/colors'
 import { groupListStyles } from '../../theme/groupListTheme'
 import { url_base } from '../../config/variables'
 import IconAnt from 'react-native-vector-icons/AntDesign';
@@ -13,7 +11,6 @@ import Contacts from 'react-native-contacts';
 import { contactStyles } from '../../theme/contactTheme'
 import BouncyCheckbox from "react-native-bouncy-checkbox";
 import { ContactListItem } from '../../components/groupList/ContactListItem';
-import AppLoader from '../../components/AppLoader';
 
 var contactList = []
 
@@ -24,7 +21,6 @@ export const ListContacts = ({ navigation }) => {
   const [isModalVisible, setIsModalVisible] = useState(false);
   const [refreshing, setRefreshing] = useState(false)
   const windowWidth = Dimensions.get('window').width;
-  const [loading, setLoading] = useState(false);
   
   const fetchData = async () => {
     const response = await fetch(`${ url_base }/api/usuarios/contactos/${ state.idUser }`,{
@@ -75,10 +71,8 @@ export const ListContacts = ({ navigation }) => {
   }
   
   useEffect(() => {
-    setLoading(true)
     fetchData();   
     requestAccessContacts();
-    setLoading(false)
   }, [])
 
 
@@ -101,7 +95,7 @@ export const ListContacts = ({ navigation }) => {
 
         
         let temp2 = contacts["contacts"].filter(el => {
-          if(el.phoneNumbers.length >= 1){
+          if(el.phoneNumbers.length > 1){
             return !numeros.includes(el["phoneNumbers"][0]["number"])
           } else {
             return false
@@ -119,7 +113,7 @@ export const ListContacts = ({ navigation }) => {
   const BuildContacsItem = () => {
     
     
-    if (state.contactList.length < 1){
+    if (state.contactList && state.contactList.length < 1){
       return <Text style={{ color: 'white', fontSize: 16, textAlign: 'center' }}> No tiene contactos </Text>
               
     }else
@@ -128,7 +122,6 @@ export const ListContacts = ({ navigation }) => {
   }
 
   const onPressRegister = async() => {
-    
     if(contactList.length < 1) return ToastAndroid.show('Debe escoger almenos una opcion',ToastAndroid.SHORT);
     try {
       
@@ -158,89 +151,83 @@ export const ListContacts = ({ navigation }) => {
 
 
   return (
-    <>
-      <View style={{...dashBoardScreenStyles.container, paddingTop:0, paddingHorizontal: 5 }}>
-        <View style={groupListStyles.searchGroupContainer}>
-          <TextInput 
-          placeholder='Buscar contactos' 
-          placeholderTextColor="#BFBFBF" 
-          style={{...groupListStyles.input,marginHorizontal:5}}
-          />
-          <Icon style={{ paddingLeft: 10 }} name='search-sharp' size={30} color='#fff' />
-        </View>
-        <ScrollView
-        refreshControl={
-          <RefreshControl
-          refreshing={refreshing}
-          onRefresh={handleRefreshData}
-          />
-        }
-        >
-          { 
-            <BuildContacsItem/>
-            
-          }
-        </ScrollView>
-
-        <TouchableOpacity
-        style={styles.fabBtn}
-        onPress={()=>{
-          setIsModalVisible(true)
-          requestAccessContacts() 
-          contactList =[]
-          
-        }}
-        >
-          <Icon name='enter' size={35} color='#fff' />
-        </TouchableOpacity>
-
-        <Modal
-              isVisible = { isModalVisible }
-              animationIn={'slideInUp'}
-              //onBackdropPress={()=>setIsModalVisible(false)}
-              onBackButtonPress={()=>setIsModalVisible(false)}
-              style={{margin:0}}
-              >
-                <View style={groupListStyles.modalContainer2}>
-                  <View style={{flexDirection:'row',justifyContent:"space-evenly"}}>
-                    <Text style={{fontSize:20,width:windowWidth*0.85,textAlign:"center", color:"gray"}}>Agregar contactos de emergencia</Text>
-                    <TouchableOpacity
-                    onPress={()=> {setIsModalVisible(false)}
-                    
-                    }
-                    >
-                    <Icon name='close' size={30} color='gray' />
-                    </TouchableOpacity>
-                  </View>
-                  
-                  <View style={{
-                      paddingTop: 20,
-                      paddingHorizontal:10,
-                      flex: 1
-                  }}>
-                      <ScrollView>
-                          { 
-                            <BuildContacs/>
-                          }
-                      </ScrollView>
-                      <View style={{alignItems:"center"}}>
-                      <TouchableOpacity
-                        style={styles.fabBtn2}
-                        onPress={()=> {
-                          if(contactList.length >= 1) setIsModalVisible(false)
-                          onPressRegister()
-                          }
-                          }
-                        >
-                          <IconAnt name='check' size={35} color='#fff' />
-                        </TouchableOpacity>
-                      </View>
-                  </View> 
-              </View>       
-            </Modal>
+    <View style={{...dashBoardScreenStyles.container, paddingTop:0, paddingHorizontal: 5 }}>
+      <View style={groupListStyles.searchGroupContainer}>
+        <TextInput 
+        placeholder='Buscar contactos' 
+        style={{...groupListStyles.input,marginHorizontal:5}}
+        />
+        <Icon style={{ paddingLeft: 10 }} name='search-sharp' size={30} color='#fff' />
       </View>
-      {loading ? <AppLoader/>: null}
-    </>
+      <ScrollView
+      refreshControl={
+        <RefreshControl
+        refreshing={refreshing}
+        onRefresh={handleRefreshData}
+        />
+      }
+      >
+        { 
+          <BuildContacsItem/>
+          
+        }
+      </ScrollView>
+
+      <TouchableOpacity
+      style={styles.fabBtn}
+      onPress={()=>{
+        setIsModalVisible(true)
+        requestAccessContacts() 
+        contactList =[]
+        
+      }}
+      >
+        <Icon name='enter' size={35} color='#fff' />
+      </TouchableOpacity>
+
+      <Modal
+            isVisible = { isModalVisible }
+            animationIn={'slideInUp'}
+            //onBackdropPress={()=>setIsModalVisible(false)}
+            onBackButtonPress={()=>setIsModalVisible(false)}
+            style={{margin:0}}
+            >
+              <View style={groupListStyles.modalContainer2}>
+                <View style={{flexDirection:'row',justifyContent:"space-evenly"}}>
+                  <Text style={{fontSize:20,width:windowWidth*0.85,textAlign:"center"}}>Agregar contactos de emergencia</Text>
+                  <TouchableOpacity
+                  onPress={()=> {setIsModalVisible(false)}}
+                  >
+                   <Icon name='close' size={30} color='gray' />
+                  </TouchableOpacity>
+                </View>
+                
+                <View style={{
+                    paddingTop: 20,
+                    paddingHorizontal:10,
+                    flex: 1
+                }}>
+                    <ScrollView>
+                        { 
+                          <BuildContacs/>
+                        }
+                    </ScrollView>
+                    <View style={{alignItems:"center"}}>
+                    <TouchableOpacity
+                      style={styles.fabBtn2}
+                      onPress={()=> {
+                        if(contactList.length >= 1) setIsModalVisible(false)
+                        onPressRegister()
+                        }
+                        }
+                      >
+                        <IconAnt name='check' size={35} color='#fff' />
+                      </TouchableOpacity>
+                    </View>
+                </View> 
+            </View>       
+          </Modal>
+    </View>
   )
 }
 
@@ -264,7 +251,6 @@ const Contact = ({data}) => {
         contactList=newArray
         setSelection(!isSelected);
     }
-    console.log(contactList)
     
   };
   
@@ -276,7 +262,7 @@ const Contact = ({data}) => {
                 <IconAnt name='user' size={30} style={{color:"gray"}}/>
                 <View >
                     <Text style={{...contactStyles.text,fontSize:20}}>{data["givenName"]}</Text>
-                    <Text style={contactStyles.text}> { data.phoneNumbers.length >= 1 && data["phoneNumbers"][0]["number"] }</Text>
+                    <Text style={contactStyles.text}> { data.phoneNumbers.length > 1 && data["phoneNumbers"][0]["number"] }</Text>
                 </View>
                 
             </View>

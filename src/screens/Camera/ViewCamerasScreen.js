@@ -31,17 +31,26 @@ export const ViewCamerasScreen = ({navigation}) => {
   }
 
   const onLaunchCamera = () => {
-    launchCamera({ saveToPhotos: true, cameraType: 'front' }, async (response) => {
+    try {
+      launchCamera({ saveToPhotos: true, cameraType: 'front' }, async (response) => {
+        if(response.didCancel){
+          setUriImage("");
+          setResponse(undefined)
+          return;
+        } 
 
-      const uri = response.assets[0].uri
-      setUriImage(uri);
-      const response_ = await faceDetection(uri)
-      if (response_?.blocks?.length > 0) {
-        setResponse(response_)
-        setAspectRatio(response_.height / response_.width)
-      }
-
-    })
+        const uri = response.assets[0].uri
+        setUriImage(uri);
+        const response_ = await faceDetection(uri)
+        if (response_?.blocks?.length > 0) {
+          setResponse(response_)
+          setAspectRatio(response_.height / response_.width)
+        }
+  
+      })
+    } catch (error) {
+      console.log(error);
+    }
   }
 
   useEffect(() => {
@@ -86,7 +95,7 @@ export const ViewCamerasScreen = ({navigation}) => {
           !!response && (<ResponseRendered response={response} scale={windowWidth / response.width} />)
         }
         <View style={{ flexDirection: 'row', justifyContent: 'center' }}>
-          <TouchableOpacity
+          {/* <TouchableOpacity
             style={{
               ...styles.primaryButton,
               marginVertical: 10,
@@ -96,18 +105,18 @@ export const ViewCamerasScreen = ({navigation}) => {
             onPress={onLaunchGallery}
           >
             <Text style={styles.primaryButtonText} >Abrir galeria</Text>
-          </TouchableOpacity>
+          </TouchableOpacity> */}
 
           <TouchableOpacity
             style={{
               ...styles.primaryButton,
               marginVertical: 10,
               marginHorizontal: 10,
-              width: 120
+              width: 250
             }}
             onPress={onLaunchCamera}
           >
-            <Text style={styles.primaryButtonText}>Capturar foto</Text>
+            <Text style={styles.primaryButtonText}>Tomar foto</Text>
           </TouchableOpacity>
         </View>
 
