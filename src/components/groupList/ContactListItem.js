@@ -21,8 +21,8 @@ export const ContactListItem = ({ data }) => {
             <View style={{flexDirection:'row', alignItems:"center"}}>
                 <Icon name='user' size={30} style={{color:"#fff"}}/>
                 <View >
-                    <Text style={{...contactStyles.text,fontSize:20}}>{data.alias}</Text>
-                    <Text style={contactStyles.text}> {data.numero}</Text>
+                    <Text style={{...contactStyles.text,fontSize:20,color:"white"}}>{data.alias}</Text>
+                    <Text style={{...contactStyles.text,color:"white"}}> {data.numero}</Text>
                 </View>        
             </View>
         </View>
