@@ -1,6 +1,7 @@
 import React, { useState,useContext,useEffect } from 'react'
 import { Image, Text, TextInput, TouchableOpacity, View,ToastAndroid } from 'react-native';
 import messaging from '@react-native-firebase/messaging';
+import SplashScreen from 'react-native-splash-screen'
 
 import { styles } from '../theme/appTheme';
 import { AuthContext } from '../context/AuthContext';
@@ -125,6 +126,8 @@ export const LoginScreen = ({ navigation }) => {
 
     //Push notifications
     useEffect(() => {
+      SplashScreen.hide();
+
       const unsubscribe = messaging().onMessage(async remoteMessage => {
         console.log("Notificacion recibida", remoteMessage);
       });
@@ -132,6 +135,8 @@ export const LoginScreen = ({ navigation }) => {
       const backgroundSuscriber = messaging().setBackgroundMessageHandler(async (remoteMessage)=> {
         console.log('Notificacion en background', remoteMessage);
       })
+
+
   
       return ()=>{
         unsubscribe();

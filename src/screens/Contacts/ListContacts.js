@@ -107,19 +107,6 @@ export const ListContacts = ({ navigation }) => {
    }
   
   
-  
-
-
-  const BuildContacsItem = () => {
-    
-    
-    if (state.contactList && state.contactList.length < 1){
-      return <Text style={{ color: 'white', fontSize: 16, textAlign: 'center' }}> No tiene contactos </Text>
-              
-    }else
-     
-      return state.contactList.map((e,i)=>( <ContactListItem key={i} data={e} /> ))
-  }
 
   const onPressRegister = async() => {
     if(contactList.length < 1) return ToastAndroid.show('Debe escoger almenos una opcion',ToastAndroid.SHORT);
@@ -152,25 +139,22 @@ export const ListContacts = ({ navigation }) => {
 
   return (
     <View style={{...dashBoardScreenStyles.container, paddingTop:0, paddingHorizontal: 5 }}>
-      <View style={groupListStyles.searchGroupContainer}>
+      {/* <View style={groupListStyles.searchGroupContainer}>
         <TextInput 
         placeholder='Buscar contactos' 
         style={{...groupListStyles.input,marginHorizontal:5}}
         />
         <Icon style={{ paddingLeft: 10 }} name='search-sharp' size={30} color='#fff' />
-      </View>
+      </View> */}
       <ScrollView
       refreshControl={
-        <RefreshControl
-        refreshing={refreshing}
-        onRefresh={handleRefreshData}
-        />
-      }
-      >
-        { 
-          <BuildContacsItem/>
-          
-        }
+        <RefreshControl refreshing={refreshing} onRefresh={handleRefreshData} />
+      }>
+        {
+          state.contactList && state.contactList.length < 1 
+          ? ( <Text style={{ color: 'white', fontSize: 16, textAlign: 'center' }}> No tiene contactos </Text>)
+          : ( state.contactList.map((e,i)=>( <ContactListItem key={i} data={e} /> )))
+        }   
       </ScrollView>
 
       <TouchableOpacity
@@ -179,7 +163,6 @@ export const ListContacts = ({ navigation }) => {
         setIsModalVisible(true)
         requestAccessContacts() 
         contactList =[]
-        
       }}
       >
         <Icon name='enter' size={35} color='#fff' />
@@ -188,7 +171,6 @@ export const ListContacts = ({ navigation }) => {
       <Modal
             isVisible = { isModalVisible }
             animationIn={'slideInUp'}
-            //onBackdropPress={()=>setIsModalVisible(false)}
             onBackButtonPress={()=>setIsModalVisible(false)}
             style={{margin:0}}
             >
@@ -214,19 +196,18 @@ export const ListContacts = ({ navigation }) => {
                     </ScrollView>
                     <View style={{alignItems:"center"}}>
                     <TouchableOpacity
-                      style={styles.fabBtn2}
-                      onPress={()=> {
-                        if(contactList.length >= 1) setIsModalVisible(false)
-                        onPressRegister()
-                        }
-                        }
-                      >
-                        <IconAnt name='check' size={35} color='#fff' />
-                      </TouchableOpacity>
-                    </View>
+                    style={styles.fabBtn2}
+                    onPress={()=> {
+                      if(contactList.length >= 1) setIsModalVisible(false)
+                      onPressRegister()
+                      }
+                    }>
+                      <IconAnt name='check' size={35} color='#fff' />
+                    </TouchableOpacity>
+                  </View>
                 </View> 
             </View>       
-          </Modal>
+      </Modal>
     </View>
   )
 }

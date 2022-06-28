@@ -1,12 +1,13 @@
 import React, { useEffect,useContext } from 'react'
-import { Text, TouchableOpacity, View,Dimensions, Image, Alert } from 'react-native';
+import { Text, TouchableOpacity, View,Dimensions, Image, Linking,Alert } from 'react-native';
 import { AuthContext } from '../context/AuthContext';
 import { dashBoardScreenStyles, styles } from '../theme/appTheme';
 
 export const Dashboard = ({ navigation }) => {
 
     const { state,setState } = useContext(AuthContext);
-
+    const windowWitdth = Dimensions.get('window').width;
+    const windowHeight = Dimensions.get('window').height;
 
     useEffect(() => {
         navigation.setOptions({
@@ -28,13 +29,12 @@ export const Dashboard = ({ navigation }) => {
                 text: 'Si, aceptar',
                 style: 'destructive',
                 onPress: () => {
-                    setState({
-                        idUser:undefined,
-                        nombre:undefined,
-                        token:undefined,
-                        groupList:[]
-                    })
-                    console.log("se ejecuta");
+
+                    setState(old=>({
+                        ...old,
+                        contactList:[]
+                    }))
+                    
                     return navigation.dispatch(e.data.action)
                 },
                 },
@@ -75,6 +75,29 @@ export const Dashboard = ({ navigation }) => {
                 >
                     <Image source={require('../assets/images/Phone.png')}/>
                     <Text style={dashBoardScreenStyles.categoryButtonText}>Contactos</Text>
+                </TouchableOpacity>
+            </View>
+            <View style={{
+                flex: 1,
+                flexDirection:'row',
+                justifyContent:'center',
+                alignItems:'flex-end',
+                bottom: 20
+            }}>
+                <TouchableOpacity 
+                style={{
+                    backgroundColor:'red',
+                    borderRadius:20,
+                    width: windowWitdth * 0.8,
+                    height: windowHeight * 0.06,
+                    justifyContent:'center',
+                    alignItems:'center'
+                }}
+                onPress={()=>{
+                    Linking.openURL('https://forms.gle/nESF61BQNi5hg4Po9')
+                }}
+                >
+                    <Text style={{fontSize:18,color:'#fff'}}>¡Dinos lo que piensas!</Text>
                 </TouchableOpacity>
             </View>
         </View>
